@@ -1,7 +1,9 @@
+import Header from "../component/header";
+
 const Index = () => {
   return (
     <div>
-      <h1>222</h1>
+      <Header title="Eric's Blog"></Header>
     </div>
   );
 };
