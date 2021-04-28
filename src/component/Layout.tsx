@@ -1,10 +1,15 @@
-import style from '../styles/header.module.scss';
 import Link from 'next/link';
 import Head from 'next/head';
+import Image from 'next/image';
+import style from '../../styles/header.module.scss';
+import HeadNavButton from '../component/common/headNavButton';
+import React, { memo } from 'react';
 interface Iprops {
     title: string;
+    children: any;
 }
-const Layout = ({ title }: Iprops) => {
+const Layout = ({ children, title }: Iprops) => {
+    console.log('aa');
     return (
         <>
             <Head>
@@ -14,22 +19,29 @@ const Layout = ({ title }: Iprops) => {
                 <Link href="/">
                     <h1>{title}</h1>
                 </Link>
-                <nav style={{ display: 'flex' }}>
-                    <Link href="/">Home</Link>
-                    <Link href="#">Posts</Link>
-                    <Link href="#">About</Link>
-                    <Link href="#">Contact</Link>
+                <nav className={style.nav}>
+                    <HeadNavButton name="Home" url="/" />
+                    <HeadNavButton name="Posts" url="post" />
+                    <HeadNavButton name="About" url="about" />
+                    <HeadNavButton name="Works" url="work" />
                 </nav>
-                <div>
-                    <Link href="/">IG</Link>
-                    <Link href="/">FB</Link>
-                    <Link href="/">Git</Link>
+                <div className={style.nav}>
+                    <a href="https://www.instagram.com/eric_fei_01/">
+                        {/* <Image priority src="/images/instagram.svg" height={16} width={16} /> */}
+                        <img src="/images/instagram.svg" height={16} width={16} />
+                    </a>
+                    <a href="https://www.facebook.com/fei.eric.3/">
+                        <Image priority src="/images/facebook.svg" height={16} width={16} />
+                    </a>
+                    <a href="https://github.com/ericfei0521">
+                        <Image priority src="/images/github.svg" height={16} width={16} />
+                    </a>
                 </div>
             </header>
-            {/* <main>{child}</main> */}
+            <main>{children}</main>
             <footer> </footer>
         </>
     );
 };
 
-export default Layout;
+export default memo(Layout);
