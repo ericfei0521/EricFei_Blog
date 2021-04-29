@@ -7,18 +7,11 @@ interface Iprop {
 }
 const HeadNavButton = ({ name, url }: Iprop) => {
     const router = useRouter();
-    let currentRouter;
-    if(router.route === '/'){
-        currentRouter = 'Home';
-    }
-    if(router.route!== '/'){
-        currentRouter = name;
-    }
+    const currentRouter = router.route === url;
+
     return (
-        <div className={currentRouter===url ? style.active : style.inactive}>
-            <Link href={url} as={name}>
-                {name}
-            </Link>
+        <div className={currentRouter ? style.active : style.inactive}>
+            <Link href={url}>{name}</Link>
         </div>
     );
 };
