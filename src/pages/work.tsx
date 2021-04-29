@@ -1,13 +1,13 @@
 import Layout from '../component/Layout';
 
-const Index = () => {
+const Work = () => {
     return (
         <div>
             <Layout title="TecPit">
-                <h2>home</h2>
+                <h2>Work</h2>
             </Layout>
         </div>
     );
 };
 
-export default Index;
+export default Work;

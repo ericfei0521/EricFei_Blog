@@ -1,13 +1,13 @@
+import React from 'react';
 import Layout from '../component/Layout';
-
-const Index = () => {
+const About = () => {
     return (
         <div>
             <Layout title="TecPit">
-                <h2>home</h2>
+                <h2>About</h2>
             </Layout>
         </div>
     );
 };
 
-export default Index;
+export default About;
