@@ -9,7 +9,6 @@ interface Iprops {
     children: any;
 }
 const Layout = ({ children, title }: Iprops) => {
-    console.log('aa');
     return (
         <>
             <Head>
@@ -21,9 +20,9 @@ const Layout = ({ children, title }: Iprops) => {
                 </Link>
                 <nav className={style.nav}>
                     <HeadNavButton name="Home" url="/" />
-                    <HeadNavButton name="Posts" url="post" />
-                    <HeadNavButton name="About" url="about" />
-                    <HeadNavButton name="Works" url="work" />
+                    <HeadNavButton name="Posts" url="/post" />
+                    <HeadNavButton name="About" url="/about" />
+                    <HeadNavButton name="Works" url="/work" />
                 </nav>
                 <div className={style.nav}>
                     <a href="https://www.instagram.com/eric_fei_01/">
