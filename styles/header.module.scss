@@ -19,3 +19,27 @@
         }
     }
 }
+.content {
+    margin: 50px auto;
+    max-width: 800px;
+    h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #f39c12;
+        margin-bottom: 10px;
+    }
+    p {
+        margin-bottom: 10px;
+    }
+}
+.footer {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    height: 5vh;
+    width: 100vw;
+    bottom: 0;
+    background-color: rgb(188 90 58);
+}

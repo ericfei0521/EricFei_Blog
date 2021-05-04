@@ -1,16 +1,19 @@
 @import 'reset.style.css';
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
 @import 'variables.scss';
 body {
     font-size: 16px;
     margin: 0;
-    font-family: -apple-system, 'Playfair Display', 'Roboto', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
+    font-family: -apple-system, 'Open Sans', 'Roboto', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
         'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     h1 {
         @include Logo;
         cursor: pointer;
+    }
+    p {
+        line-height: 20px;
     }
     a {
         font-size: 16px;

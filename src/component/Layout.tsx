@@ -20,7 +20,7 @@ const Layout = ({ children, title }: Iprops) => {
                 </Link>
                 <nav className={style.nav}>
                     <HeadNavButton name="Home" url="/" />
-                    <HeadNavButton name="Posts" url="/post" />
+                    <HeadNavButton name="Posts" url="/posts" />
                     <HeadNavButton name="About" url="/about" />
                     <HeadNavButton name="Works" url="/work" />
                 </nav>
@@ -37,8 +37,10 @@ const Layout = ({ children, title }: Iprops) => {
                     </a>
                 </div>
             </header>
-            <main>{children}</main>
-            <footer> </footer>
+            <main className={style.content}>{children}</main>
+            <footer className={style.footer}>
+                <p>© 2021 TecPit created by EricFei</p>
+            </footer>
         </>
     );
 };
