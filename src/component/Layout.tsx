@@ -3,7 +3,6 @@ import Head from 'next/head';
 import Image from 'next/image';
 import style from '../../styles/header.module.scss';
 import HeadNavButton from '../component/common/headNavButton';
-import React, { memo } from 'react';
 interface Iprops {
     title: string;
     children: any;
@@ -25,13 +24,13 @@ const Layout = ({ children, title }: Iprops) => {
                     <HeadNavButton name="Works" url="/work" />
                 </nav>
                 <div className={style.nav}>
-                    <a href="https://www.instagram.com/eric_fei_01/">
+                    <a href="https://www.instagram.com/eric_fei_01/" target="_blank">
                         <Image priority src="/images/instagram.svg" height={16} width={16} />
                     </a>
-                    <a href="https://www.facebook.com/fei.eric.3/">
+                    <a href="https://www.facebook.com/fei.eric.3/" target="_blank">
                         <Image priority src="/images/facebook.svg" height={16} width={16} />
                     </a>
-                    <a href="https://github.com/ericfei0521">
+                    <a href="https://github.com/ericfei0521" target="_blank">
                         <Image priority src="/images/github.svg" height={16} width={16} />
                     </a>
                 </div>
@@ -44,4 +43,4 @@ const Layout = ({ children, title }: Iprops) => {
     );
 };
 
-export default memo(Layout);
+export default Layout;

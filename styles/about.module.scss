@@ -7,8 +7,12 @@
         overflow: hidden;
         img {
             width: 500px;
-            transform: translate(25px);
+            transform: translate(0px);
             filter: contrast(90%) grayscale(20%);
+        }
+        .animation_trigger {
+            transform: translate(23px);
+            transition: 2s;
         }
     }
     .intro {

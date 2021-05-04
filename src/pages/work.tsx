@@ -1,5 +1,3 @@
-import Layout from '../component/Layout';
-
 const Work = () => {
     return (
         <div>
