@@ -1,3 +1,4 @@
+@import 'variables.scss';
 .header {
     width: 100vw;
     box-sizing: border-box;
@@ -18,4 +19,36 @@
             color: brown;
         }
     }
+}
+.content {
+    margin: 50px auto;
+    max-width: 800px;
+    h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+    h3 {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: $subtitle;
+        margin-bottom: 10px;
+    }
+    p {
+        margin-bottom: 10px;
+    }
+    img {
+        width: 100%;
+    }
+}
+.footer {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    height: 5vh;
+    width: 100vw;
+    bottom: 0;
+    background-color: rgb(188 90 58);
 }

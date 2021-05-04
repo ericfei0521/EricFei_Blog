@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import style from './headNavbutton.module.scss';
+import style from '../../../styles/headNavButton.module.scss';
 interface Iprop {
     name: string;
     url: string;

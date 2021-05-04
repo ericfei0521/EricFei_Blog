@@ -20,14 +20,13 @@ const Layout = ({ children, title }: Iprops) => {
                 </Link>
                 <nav className={style.nav}>
                     <HeadNavButton name="Home" url="/" />
-                    <HeadNavButton name="Posts" url="/post" />
+                    <HeadNavButton name="Posts" url="/posts" />
                     <HeadNavButton name="About" url="/about" />
                     <HeadNavButton name="Works" url="/work" />
                 </nav>
                 <div className={style.nav}>
                     <a href="https://www.instagram.com/eric_fei_01/">
-                        {/* <Image priority src="/images/instagram.svg" height={16} width={16} /> */}
-                        <img src="/images/instagram.svg" height={16} width={16} />
+                        <Image priority src="/images/instagram.svg" height={16} width={16} />
                     </a>
                     <a href="https://www.facebook.com/fei.eric.3/">
                         <Image priority src="/images/facebook.svg" height={16} width={16} />
@@ -37,8 +36,10 @@ const Layout = ({ children, title }: Iprops) => {
                     </a>
                 </div>
             </header>
-            <main>{children}</main>
-            <footer> </footer>
+            <main className={style.content}>{children}</main>
+            <footer className={style.footer}>
+                <p>© 2021 TecPit created by EricFei</p>
+            </footer>
         </>
     );
 };

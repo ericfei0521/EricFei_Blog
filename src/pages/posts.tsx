@@ -1,11 +1,10 @@
 import Layout from '../component/Layout';
+import Link from 'next/link';
 
 const Work = () => {
     return (
         <div>
-            <Layout title="TecPit">
-                <h2>post</h2>
-            </Layout>
+            <Link href="/posts/1">test</Link>
         </div>
     );
 };
