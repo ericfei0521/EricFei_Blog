@@ -1,4 +1,3 @@
-import React from 'react';
 import { GetServerSideProps } from 'next';
 import { firestore } from '../../lib/firebase';
 import parse from 'html-react-parser';
@@ -16,7 +15,7 @@ export default function PostDetail({ data }: Iprops) {
     const text = parse(String(data.Content));
     return (
         <div>
-            <h2>{data.Title}</h2>
+              <h2>{data.Title}</h2>
             {text}
         </div>
     );

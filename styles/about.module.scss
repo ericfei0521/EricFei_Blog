@@ -1,18 +1,22 @@
 .profile {
     display: grid;
-    grid-template-columns: 40% 60%;
+    height: 600px;
+    padding: 20px;
+    background-color: #fef2f0;
+    grid-template-columns: 70% 30%;
     .image {
-        width: 300px;
-        border-left: 1px solid gray;
+        width: 100%;
+        height: 400px;
         overflow: hidden;
+        margin-top: 60px;
         img {
             width: 500px;
-            transform: translate(0px);
+            transform: translate(43px, -60px);
             filter: contrast(90%) grayscale(20%);
         }
         .animation_trigger {
-            transform: translate(23px);
-            transition: 2s;
+            transform: translate(0px, -60px);
+            transition: 1s ease-in-out;
         }
     }
     .intro {

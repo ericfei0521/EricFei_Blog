@@ -12,9 +12,6 @@ const About = () => {
     return (
         <>
             <div className={style.profile}>
-                <div className={style.image}>
-                    <img src="/images/profile.jpeg" className={firstLoade ? style.animation_trigger : ''} alt="" />
-                </div>
                 <div className={style.intro}>
                     <h2>Eric Fei</h2>
                     <h3>Front-End Developer & 3D Artist</h3>
@@ -35,6 +32,9 @@ const About = () => {
                             <Image priority src="/images/github.svg" height={16} width={16} />
                         </a>
                     </div>
+                </div>
+                <div className={style.image}>
+                    <img src="/images/profile.jpeg" className={firstLoade ? style.animation_trigger : ''} alt="" />
                 </div>
             </div>
         </>

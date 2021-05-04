@@ -10,6 +10,9 @@
     align-items: center;
     text-align: center;
     position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 999;
     .nav {
         display: flex;
         justify-content: space-around;
@@ -22,7 +25,9 @@
 }
 .content {
     margin: 50px auto;
-    max-width: 800px;
+    width: 80vw;
+    min-width: 800px;
+    max-width: 1200px;
     h2 {
         font-size: 1.5rem;
         font-weight: 700;
