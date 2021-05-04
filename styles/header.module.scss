@@ -1,3 +1,4 @@
+@import 'variables.scss';
 .header {
     width: 100vw;
     box-sizing: border-box;
@@ -25,11 +26,19 @@
     h2 {
         font-size: 1.5rem;
         font-weight: 700;
-        color: #f39c12;
+        margin-bottom: 10px;
+    }
+    h3 {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: $subtitle;
         margin-bottom: 10px;
     }
     p {
         margin-bottom: 10px;
+    }
+    img {
+        width: 100%;
     }
 }
 .footer {

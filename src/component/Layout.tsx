@@ -26,8 +26,7 @@ const Layout = ({ children, title }: Iprops) => {
                 </nav>
                 <div className={style.nav}>
                     <a href="https://www.instagram.com/eric_fei_01/">
-                        {/* <Image priority src="/images/instagram.svg" height={16} width={16} /> */}
-                        <img src="/images/instagram.svg" height={16} width={16} />
+                        <Image priority src="/images/instagram.svg" height={16} width={16} />
                     </a>
                     <a href="https://www.facebook.com/fei.eric.3/">
                         <Image priority src="/images/facebook.svg" height={16} width={16} />
