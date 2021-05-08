@@ -28,6 +28,10 @@ const MyEditor = ({ id, content }) => {
                         editorClassName="demo-editor"
                         onEditorStateChange={setEditorState}
                         readOnly={true}
+                        toolbarHidden={false}
+                        toolbar={{
+                            link: { showOpenOptionOnHover: false },
+                        }}
                     />
                     {/* <button onClick={onChangeState}>kkk</button> */}
                 </div>
