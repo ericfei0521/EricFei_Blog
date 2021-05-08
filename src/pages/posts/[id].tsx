@@ -17,7 +17,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 export default function PostDetail({ content, id }: Iprops) {
     return (
-        <div>
+        <div style={{ width: '100%' }}>
             <MyEditor id={id} content={content} />
         </div>
     );

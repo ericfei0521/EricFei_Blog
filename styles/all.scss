@@ -1,4 +1,4 @@
-// @import 'reset.style.css';
+@import 'reset.style.css';
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
 @import 'variables.scss';
 body {
@@ -17,6 +17,9 @@ body {
     a {
         font-size: 16px;
         color: black;
+    }
+    span {
+        line-height: 30px;
     }
 
     main {

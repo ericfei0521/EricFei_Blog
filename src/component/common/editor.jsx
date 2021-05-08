@@ -21,7 +21,7 @@ const MyEditor = ({ id, content }) => {
     return (
         <>
             {editor ? (
-                <>
+                <div style={{ width: '100%' }}>
                     <Editor
                         editorState={editorState}
                         wrapperClassName="demo-wrapper"
@@ -34,7 +34,7 @@ const MyEditor = ({ id, content }) => {
                         }}
                     />
                     {/* <button onClick={onChangeState}>kkk</button> */}
-                </>
+                </div>
             ) : null}
         </>
     );
