@@ -1,22 +1,27 @@
-@import 'reset.style.css';
+// @import 'reset.style.css';
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
 @import 'variables.scss';
 body {
+    width: 100vw;
     font-size: 16px;
     margin: 0;
     font-family: -apple-system, 'Open Sans', 'Roboto', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
         'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    h1 {
-        @include Logo;
-        cursor: pointer;
-    }
+    line-height: 1.6rem;
+
     p {
         line-height: 20px;
     }
+
     a {
         font-size: 16px;
         color: black;
+    }
+
+    main {
+        width: 100%;
+        min-height: calc(80vh - 42px);
     }
 }

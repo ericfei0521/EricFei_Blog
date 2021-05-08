@@ -16,7 +16,7 @@ const Layout = ({ children, title }: Iprops) => {
             </Head>
             <header className={style.header}>
                 <Link href="/">
-                    <h1>{title}</h1>
+                    <span className={style.title}>{title}</span>
                 </Link>
                 <nav className={style.nav}>
                     <HeadNavButton name="Home" url="/" />

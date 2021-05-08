@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { EditorState, convertToRaw } from 'draft-js';
-import draftToHtml from 'draftjs-to-html';
+import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
+import { firestore } from '../../lib/firebase';
 import dynamic from 'next/dynamic';
 const Editor = dynamic(() => import('react-draft-wysiwyg').then((mod) => mod.Editor), { ssr: false });
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
-const MyEditor = () => {
-    const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
+const MyEditor = ({ id, content }) => {
+    const contentState = convertFromRaw(content);
+    const [editorState, setEditorState] = useState(() => EditorState.createWithContent(contentState));
     const [editor, setEditor] = useState(false);
     useEffect(() => {
         setEditor(true);
     });
-
+    const onChangeState = () => {
+        const data = JSON.stringify(convertToRaw(editorState.getCurrentContent()));
+        firestore.collection('Posts').doc(id).update({
+            content: data,
+        });
+    };
     return (
         <>
             {editor ? (
@@ -21,8 +27,9 @@ const MyEditor = () => {
                         wrapperClassName="demo-wrapper"
                         editorClassName="demo-editor"
                         onEditorStateChange={setEditorState}
+                        readOnly={true}
                     />
-                    <textarea disabled value={draftToHtml(convertToRaw(editorState.getCurrentContent()))} />
+                    {/* <button onClick={onChangeState}>kkk</button> */}
                 </div>
             ) : null}
         </>

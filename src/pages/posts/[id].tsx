@@ -1,24 +1,24 @@
 import { GetServerSideProps } from 'next';
+import draftToHtml from 'draftjs-to-html';
 import { firestore } from '../../lib/firebase';
 import MyEditor from '../../component/common/editor';
 import parse from 'html-react-parser';
 interface Iprops {
-    data: any;
+    content: any;
+    id: string;
 }
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const id: any = context.query.id;
     const res = await firestore.collection('Posts').doc(id).get();
     const data = await res.data();
-    return { props: { data } };
+    const content = await JSON.parse(data?.content);
+    return { props: { content, id } };
 };
 
-export default function PostDetail({ data }: Iprops) {
-    const text = parse(String(data.Content));
+export default function PostDetail({ content, id }: Iprops) {
     return (
         <div>
-            <h2>{data.Title}</h2>
-            {text}
-            <MyEditor />
+            <MyEditor id={id} content={content} />
         </div>
     );
 }
