@@ -1,5 +1,6 @@
 import '../../styles/all.scss';
 import Layout from '../component/Layout';
+
 interface AppProps {
     Component: any;
     pageProps: any;

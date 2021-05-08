@@ -6,6 +6,8 @@
         "start": "next start"
     },
     "dependencies": {
+        "draft-js": "^0.11.7",
+        "es6-shim": "^0.35.6",
         "firebase": "^8.4.3",
         "html-react-parser": "^1.2.6",
         "next": "^10.1.3",

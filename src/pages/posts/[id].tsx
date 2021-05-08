@@ -1,5 +1,6 @@
 import { GetServerSideProps } from 'next';
 import { firestore } from '../../lib/firebase';
+import MyEditor from '../../component/common/editor';
 import parse from 'html-react-parser';
 interface Iprops {
     data: any;
@@ -15,8 +16,9 @@ export default function PostDetail({ data }: Iprops) {
     const text = parse(String(data.Content));
     return (
         <div>
-              <h2>{data.Title}</h2>
+            <h2>{data.Title}</h2>
             {text}
+            <MyEditor />
         </div>
     );
 }

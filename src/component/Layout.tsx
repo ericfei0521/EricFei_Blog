@@ -12,6 +12,7 @@ const Layout = ({ children, title }: Iprops) => {
         <>
             <Head>
                 <title>{title}</title>
+                <meta charSet="utf-8" />
             </Head>
             <header className={style.header}>
                 <Link href="/">
