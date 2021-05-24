@@ -33,7 +33,7 @@ const MyEditor = ({ id, content }) => {
                             link: { showOpenOptionOnHover: false },
                         }}
                     />
-                    {/* <button onClick={onChangeState}>kkk</button> */}
+                    <button onClick={onChangeState}>kkk</button>
                 </div>
             ) : null}
         </>

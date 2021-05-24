@@ -1,8 +1,6 @@
 import { GetServerSideProps } from 'next';
-import draftToHtml from 'draftjs-to-html';
 import { firestore } from '../../lib/firebase';
 import MyEditor from '../../component/common/editor';
-import parse from 'html-react-parser';
 interface Iprops {
     content: any;
     id: string;

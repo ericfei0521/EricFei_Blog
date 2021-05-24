@@ -12,14 +12,21 @@ const Work = ({ data }: Iprops) => {
     return (
         <div>
             {data.map((item) => {
-                console.log(item.id);
+                console.log(item.image);
                 return (
-                    <div>
-                        <h1>{item.Title}</h1>
-                        <Link href="/posts/[uid]" as={`/posts/${item.id}`}>
+                    <Link href="/posts/[uid]" as={`/posts/${item.id}`}>
+                        <div
+                            style={{
+                                width: '80%',
+                                height: '120px',
+                                backgroundImage: `url(${item.image})`,
+                                backgroundSize: 'cover',
+                                backgroundPosition: 'center',
+                            }}
+                        >
                             {item.Title}
-                        </Link>
-                    </div>
+                        </div>
+                    </Link>
                 );
             })}
         </div>
