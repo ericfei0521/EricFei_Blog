@@ -7,7 +7,7 @@ interface AppProps {
 }
 export default function App({ Component, pageProps }: AppProps) {
     return (
-        <Layout title="TecPit">
+        <Layout title="TechPit">
             <Component {...pageProps} />
         </Layout>
     );

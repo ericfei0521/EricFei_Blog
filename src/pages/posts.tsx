@@ -8,7 +8,7 @@ interface LooseObject {
     [key: string]: any;
 }
 const Work = ({ data }: Iprops) => {
-    console.log(data);
+    console.time();
     return (
         <div>
             {data.map((item) => {
