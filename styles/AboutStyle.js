@@ -1,4 +1,6 @@
-.profile {
+import { css } from 'styled-components';
+
+const styles = css`
     display: grid;
     height: 400px;
     padding: 20px;
@@ -32,4 +34,5 @@
             justify-content: space-between;
         }
     }
-}
+`;
+export default styles;

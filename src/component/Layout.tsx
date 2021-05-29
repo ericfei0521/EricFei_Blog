@@ -1,30 +1,34 @@
 import Link from 'next/link';
 import Head from 'next/head';
 import Image from 'next/image';
-import style from '../../styles/header.module.scss';
+import styled from 'styled-components';
+import styles from '../../styles/LayoutStyles';
 import HeadNavButton from '../component/common/headNavButton';
+import { ReactChild } from 'react';
+
 interface Iprops {
     title: string;
-    children: any;
+    children: ReactChild;
+    className?: string;
 }
-const Layout = ({ children, title }: Iprops) => {
+const Layout = ({ className, children, title }: Iprops) => {
     return (
-        <>
+        <div className={className}>
             <Head>
                 <title>{title}</title>
                 <meta charSet="utf-8" />
             </Head>
-            <header className={style.header}>
+            <header>
                 <Link href="/">
-                    <span className={style.title}>{title}</span>
+                    <span className="title">{title}</span>
                 </Link>
-                <nav className={style.nav}>
+                <nav>
                     <HeadNavButton name="Home" url="/" />
                     <HeadNavButton name="Posts" url="/posts" />
                     <HeadNavButton name="About" url="/about" />
                     <HeadNavButton name="Works" url="/work" />
                 </nav>
-                <div className={style.nav}>
+                <nav>
                     <a href="https://www.instagram.com/eric_fei_01/" target="_blank">
                         <Image priority src="/images/instagram.svg" height={16} width={16} />
                     </a>
@@ -34,14 +38,16 @@ const Layout = ({ children, title }: Iprops) => {
                     <a href="https://github.com/ericfei0521" target="_blank">
                         <Image priority src="/images/github.svg" height={16} width={16} />
                     </a>
-                </div>
+                </nav>
             </header>
-            <main className={style.content}>{children}</main>
-            <footer className={style.footer}>
+            <main className="content">{children}</main>
+            <footer>
                 <p>© 2021 TecPit created by EricFei</p>
             </footer>
-        </>
+        </div>
     );
 };
 
-export default Layout;
+export default styled(Layout)`
+    ${styles}
+`;

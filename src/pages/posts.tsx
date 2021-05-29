@@ -8,13 +8,12 @@ interface LooseObject {
     [key: string]: any;
 }
 const Work = ({ data }: Iprops) => {
-    console.time();
     return (
         <div>
             {data.map((item) => {
                 console.log(item.image);
                 return (
-                    <Link href="/posts/[uid]" as={`/posts/${item.id}`}>
+                    <Link href="/posts/[uid]" as={`/posts/${item.id}`} key={item.id}>
                         <div
                             style={{
                                 width: '80%',
@@ -33,7 +32,7 @@ const Work = ({ data }: Iprops) => {
     );
 };
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps = async () => {
     const res = await firestore.collection('Posts').get();
     const idArray = res.docs.map((doc) => doc.id);
     const data: LooseObject = res.docs.map((doc) => doc.data());

@@ -9,7 +9,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const id: any = context.query.id;
     const res = await firestore.collection('Posts').doc(id).get();
     const data = await res.data();
-    const content = data?.content;
+    let content = {};
+    if (data) {
+        content = data.content;
+    }
     return { props: { content, id } };
 };
 

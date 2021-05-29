@@ -1,14 +1,14 @@
-import '../../styles/all.scss';
+import { AppProps } from 'next/app';
+import GlobalStyle from '../../styles/GlobalStyle';
 import Layout from '../component/Layout';
 
-interface AppProps {
-    Component: any;
-    pageProps: any;
-}
 export default function App({ Component, pageProps }: AppProps) {
     return (
-        <Layout title="TechPit">
-            <Component {...pageProps} />
-        </Layout>
+        <>
+            <GlobalStyle />
+            <Layout title="TechPit">
+                <Component {...pageProps} />
+            </Layout>
+        </>
     );
 }
