@@ -8,9 +8,13 @@ interface Iprops {
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const id: any = context.query.id;
     const res = await firestore.collection('Posts').doc(id).get();
-    const data = await res.data();
-    let content = {};
-    if (data) {
+    const data = res.data();
+    let content = {
+        entityMap: {},
+        blocks: [],
+    };
+
+    if (data?.content) {
         content = data.content;
     }
     return { props: { content, id } };
