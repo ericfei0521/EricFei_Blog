@@ -7,12 +7,6 @@ export const resetStyle = css`
     span,
     object,
     iframe,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
     p,
     blockquote,
     pre,
@@ -21,7 +15,6 @@ export const resetStyle = css`
     address,
     big,
     cite,
-    code,
     del,
     dfn,
     em,
@@ -32,7 +25,6 @@ export const resetStyle = css`
     s,
     samp,
     small,
-    strong,
     sub,
     sup,
     var,
@@ -42,9 +34,6 @@ export const resetStyle = css`
     dl,
     dt,
     dd,
-    ol,
-    ul,
-    li,
     fieldset,
     form,
     label,
@@ -101,16 +90,11 @@ export const resetStyle = css`
     body {
         line-height: 1;
     }
-    ol,
-    ul {
-        list-style: none;
-    }
     blockquote,
     q {
         quotes: none;
     }
-    blockquote:before,
-    blockquote:after,
+
     q:before,
     q:after {
         content: '';

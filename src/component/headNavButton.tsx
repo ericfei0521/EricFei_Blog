@@ -4,14 +4,17 @@ import styled from 'styled-components';
 interface Iprop {
     name: string;
     url: string;
+    className?: string;
 }
-const HeadNavButton = ({ name, url }: Iprop) => {
+const HeadNavButton = ({ className, name, url }: Iprop) => {
     const router = useRouter();
     const currentRouter = router.route === url;
 
     return (
-        <div className={currentRouter ? 'active' : 'inactive'}>
-            <Link href={url}>{name}</Link>
+        <div className={className}>
+            <div className={currentRouter ? 'active' : 'inactive'}>
+                <Link href={url}>{name}</Link>
+            </div>
         </div>
     );
 };
@@ -19,7 +22,7 @@ const HeadNavButton = ({ name, url }: Iprop) => {
 export default styled(HeadNavButton)`
     .inactive {
         a {
-            color: black;
+            color: white;
         }
     }
     .active {
