@@ -4,8 +4,8 @@ const styles = css`
     display: grid;
     height: 400px;
     padding: 20px;
-    background-color: #fef2f0;
     grid-template-columns: 70% 30%;
+    border-bottom: 1px solid white;
     .image {
         width: 100%;
         height: 400px;
@@ -24,6 +24,9 @@ const styles = css`
         padding: 0 20px;
         z-index: 100;
         height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         p {
             font-size: 1.2rem;
             line-height: 2rem;
@@ -32,6 +35,9 @@ const styles = css`
             width: 100px;
             display: flex;
             justify-content: space-between;
+            img {
+                filter: brightness(0) invert(1);
+            }
         }
     }
 `;

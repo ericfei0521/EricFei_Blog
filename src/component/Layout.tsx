@@ -3,7 +3,8 @@ import Head from 'next/head';
 import Image from 'next/image';
 import styled from 'styled-components';
 import styles from '../../styles/LayoutStyles';
-import HeadNavButton from '../component/common/headNavButton';
+import HeadNavButton from './headNavButton';
+
 import { ReactChild } from 'react';
 
 interface Iprops {
@@ -42,7 +43,7 @@ const Layout = ({ className, children, title }: Iprops) => {
             </header>
             <main className="content">{children}</main>
             <footer>
-                <p>© 2021 TecPit created by EricFei</p>
+                <span>© 2021 created by TecPit</span>
             </footer>
         </div>
     );

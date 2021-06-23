@@ -15,14 +15,16 @@ const About = ({ className }: Iprops) => {
     return (
         <div className={`${className}`}>
             <div className="intro">
-                <h2>Eric Fei</h2>
-                <h3>Front-End Developer & 3D Artist</h3>
-                <p>
-                    I am a Front-End Developer with PM and VFX artist background , creating modern and user friendly
-                    interfaces. I've had the chance to join a high intance program , Within 4 months i accomplished two
-                    major projects Witch are a pure JS e-commerce website and React framework project management
-                    plateform . Hope can make this world a little bit better and fancy through 3D skills and code.
-                </p>
+                <div>
+                    <h2>Eric Fei</h2>
+                    <h3>Front-End Developer & 3D Artist</h3>
+                    <p>
+                        I am a Front-End Developer with PM and VFX artist background , creating modern and user friendly
+                        interfaces. I've had the chance to join a high intance program , Within 4 months i accomplished
+                        two major projects Witch are a pure JS e-commerce website and React framework project management
+                        plateform . Hope can make this world a little bit better and fancy through 3D skills and code.
+                    </p>
+                </div>
                 <div className="contact">
                     <a href="https://www.instagram.com/eric_fei_01/" target="_blank">
                         <Image priority src="/images/instagram.svg" height={16} width={16} />
