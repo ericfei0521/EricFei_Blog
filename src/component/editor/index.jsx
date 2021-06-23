@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { Editor, EditorState, convertToRaw, convertFromRaw, RichUtils, Modifier } from 'draft-js';
+import Draft, { Editor, EditorState, convertToRaw, convertFromRaw, RichUtils, Modifier } from 'draft-js';
 import { firestore } from '../../lib/firebase';
 import CodeUtils from 'draft-js-code';
 import PropTypes from 'prop-types';
@@ -11,7 +11,14 @@ import { BlockStyleControls } from './editorUnits';
 const MyEditor = ({ className, id, content }) => {
     const contentState = convertFromRaw(content);
     const [editorState, setEditorState] = useState(() => EditorState.createWithContent(contentState));
-    const onChange = (newState) => {
+    useEffect(() => {
+        const decorator = new PrismDecorator({
+            prism: Prism,
+            defaultSyntax: 'javascript',
+        });
+        setEditorState(EditorState.set(editorState, { decorator }));
+    }, []);
+    const _onChange = (newState) => {
         const decorator = new PrismDecorator({
             prism: Prism,
             defaultSyntax: 'javascript',
@@ -19,31 +26,68 @@ const MyEditor = ({ className, id, content }) => {
         setEditorState(EditorState.set(newState, { decorator }));
     };
 
-    const _handleInlineStyle = (inlineStyle) => {
-        setEditorState(RichUtils.toggleInlineStyle(editorState, inlineStyle));
-    };
-
     const _handleKeyCommand = (command, editorState) => {
-        const newState = RichUtils.handleKeyCommand(editorState, command);
+        let newState;
+        if (CodeUtils.hasSelectionInBlock(editorState)) {
+            newState = CodeUtils.handleKeyCommand(editorState, command);
+        }
+        if (!newState) {
+            newState = RichUtils.handleKeyCommand(editorState, command);
+        }
         if (newState) {
-            setEditorState(newState);
+            _onChange(newState);
             return 'handled';
         }
         return 'not-handled';
     };
 
-    const _toggleBlockType = (blockStyle) => {
+    const _mapKeyToEditorCommand = (e) => {
+        if (e.keyCode === 9 /* TAB */) {
+            _onChange(CodeUtils.onTab(e, editorState));
+            return;
+        }
+        if (e.keyCode === 13 /* RETURN */) {
+            if (CodeUtils.hasSelectionInBlock(editorState)) {
+                _onChange(CodeUtils.handleReturn(e, editorState));
+                return;
+            }
+        }
+        if (CodeUtils.hasSelectionInBlock(editorState)) {
+            const command = CodeUtils.getKeyBinding(e);
+            if (command) return command;
+        }
+        return Draft.getDefaultKeyBinding(e);
+    };
+
+    const _handlePastedText = (replaceText) => {
+        if (CodeUtils.hasSelectionInBlock(editorState)) {
+            const newContent = Modifier.replaceText(
+                editorState.getCurrentContent(),
+                editorState.getSelection(),
+                replaceText,
+            );
+            _onChange(EditorState.push(editorState, newContent, 'insert-characters'));
+            return true;
+        }
+        return false;
+    };
+
+    const _toggleBlockType = (blockType) => {
         let state = editorState;
-        if (blockStyle === 'code-block' && CodeUtils.hasSelectionInBlock(editorState)) {
+        if (blockType === 'code-block' && CodeUtils.hasSelectionInBlock(editorState)) {
             const content = state.getCurrentContent();
             const selection = state.getSelection();
             const split = Modifier.splitBlock(content, selection);
             state = EditorState.push(state, split, 'split-block');
         }
-        onChange(RichUtils.toggleBlockType(editorState, blockStyle));
+        _onChange(Draft.RichUtils.toggleBlockType(state, blockType));
     };
 
-    const onChangeState = () => {
+    const _handleInlineStyle = (inlineStyle) => {
+        _onChange(RichUtils.toggleInlineStyle(editorState, inlineStyle));
+    };
+
+    const _onChangeState = () => {
         const data = convertToRaw(editorState.getCurrentContent());
         firestore.collection('Posts').doc(id).update({
             content: data,
@@ -56,7 +100,6 @@ const MyEditor = ({ className, id, content }) => {
                 return 'RichEditor-blockquote';
             case 'code-block':
                 return 'language-';
-
             default:
                 return null;
         }
@@ -64,25 +107,30 @@ const MyEditor = ({ className, id, content }) => {
 
     return (
         <div style={{ maxWidth: '800px', margin: '0 auto' }} className={className}>
-            <button onClick={() => _handleInlineStyle('BOLD')}>
-                <Image src="/images/icons/bold.svg" alt="Bold-icon" height={15} width={15} />
-            </button>
-            <button onClick={() => _handleInlineStyle('ITALIC')}>
-                <Image src="/images/icons/italic.svg" alt="italic-icon" height={15} width={15} />
-            </button>
-            <button onClick={() => _handleInlineStyle('UNDERLINE')}>
-                <Image src="/images/icons/underline.svg" alt="underline-icon" height={15} width={15} />
-            </button>
-            <BlockStyleControls editorState={editorState} onToggle={_toggleBlockType} />
+            <div>
+                <button onClick={() => _handleInlineStyle('BOLD')}>
+                    <Image src="/images/icons/bold.svg" alt="Bold-icon" height={15} width={15} />
+                </button>
+                <button onClick={() => _handleInlineStyle('ITALIC')}>
+                    <Image src="/images/icons/italic.svg" alt="italic-icon" height={15} width={15} />
+                </button>
+                <button onClick={() => _handleInlineStyle('UNDERLINE')}>
+                    <Image src="/images/icons/underline.svg" alt="underline-icon" height={15} width={15} />
+                </button>
+                <BlockStyleControls editorState={editorState} onToggle={_toggleBlockType} />
+            </div>
+            <label htmlFor="articleTitle">Title: </label>
+            <input type="text" name="articleTitle" placeholder="please input title" />
             <Editor
-                textAlignment="left"
-                blockStyleFn={_getBlockStyle}
                 placeholder="Start writing ...."
-                handleKeyCommand={_handleKeyCommand}
+                handlePastedText={_handlePastedText}
                 editorState={editorState}
-                onChange={setEditorState}
+                onChange={_onChange}
+                handleKeyCommand={_handleKeyCommand}
+                keyBindingFn={_mapKeyToEditorCommand}
+                blockStyleFn={_getBlockStyle}
             />
-            <button onClick={onChangeState}>kkk</button>
+            <button onClick={_onChangeState}>Submit</button>
         </div>
     );
 };

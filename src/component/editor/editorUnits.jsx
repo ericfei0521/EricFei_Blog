@@ -10,6 +10,13 @@ const BLOCK_TYPES = [
     { label: 'OL', style: 'ordered-list-item' },
     { label: '</>', style: 'code-block' },
 ];
+const Button = styled.button`
+    color: ${(props) => (props.isActive ? '#9999ff' : 'gray')};
+    font-size: 1rem;
+    background-color: transparent;
+    border: none;
+    font-weight: bold;
+`;
 
 export const BlockStyleControls = (props) => {
     const { editorState } = props;
@@ -23,13 +30,6 @@ export const BlockStyleControls = (props) => {
         props.onToggle(type.style);
     };
 
-    const Button = styled.button`
-        color: ${(props) => (props.isActive ? '#9999ff' : 'gray')};
-        font-size: 1rem;
-        background-color: transparent;
-        border: none;
-        font-weight: bold;
-    `;
     return (
         <>
             {BLOCK_TYPES.map((type) => (
@@ -38,29 +38,5 @@ export const BlockStyleControls = (props) => {
                 </Button>
             ))}
         </>
-    );
-};
-
-const INLINE_STYLES = [
-    { label: 'Bold', style: 'BOLD' },
-    { label: 'Italic', style: 'ITALIC' },
-    { label: 'Underline', style: 'UNDERLINE' },
-    { label: 'Monospace', style: 'CODE' },
-];
-
-export const InlineStyleControls = (props) => {
-    const currentStyle = props.editorState.getCurrentInlineStyle();
-    const onToggle = (e, type) => {
-        e.preventDefault();
-        props.onToggle(type.style);
-    };
-    return (
-        <div>
-            {INLINE_STYLES.map((type) => (
-                <button onMouseDown={(e) => onToggle(e, type)} active={currentStyle.has(type.style)} key={type.label}>
-                    {type.label}
-                </button>
-            ))}
-        </div>
     );
 };

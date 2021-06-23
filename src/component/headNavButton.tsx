@@ -27,7 +27,7 @@ export default styled(HeadNavButton)`
     }
     .active {
         a {
-            color: brown;
+            color: #ffcd92;
         }
     }
 `;
