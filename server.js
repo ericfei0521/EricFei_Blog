@@ -1,6 +1,6 @@
 const { createServer } = require('https');
 const { parse } = require('url');
-const { readFileSync } = require('fs');
+const fs = require('fs');
 const next = require('next');
 
 const port = 3000;
@@ -9,8 +9,8 @@ const app = next({ dev });
 const handle = app.getRequestHandler();
 
 const httpsOptions = {
-    key: readFileSync('/Eric_Blog/techpit.org+1.pem'),
-    cert: readFileSync('/Eric_Blog/techpit.org+1-key.pem'),
+    key: fs.readFileSync('./techpit.org+1-key.pem'),
+    cert: fs.readFileSync('./techpit.org+1.pem'),
 };
 
 app.prepare().then(() => {

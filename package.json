@@ -3,7 +3,7 @@
     "scripts": {
         "dev": "node server.js",
         "build": "next build",
-        "start": "node server.js"
+        "start": "next start"
     },
     "dependencies": {
         "draft-convert": "^2.1.11",

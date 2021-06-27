@@ -11,30 +11,27 @@ export const ImageUploader = ({ editorState, addImage }) => {
         const newEditorState = EditorState.set(editorState, { currentContent: contentStateWithEntity });
         addImage(AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, ' '));
     };
-    const _handleInputChange = async (data) => {
-        if (data) {
+    const _handleInputChange = (e) => {
+        e.preventDefault();
+        if (imageData) {
             const formdata = new FormData();
-            console.log(data);
-            formdata.append('image', data);
-            await fetch('https://api.imgur.com/3/upload', {
+            formdata.append('image', imageData);
+            fetch('https://api.imgur.com/3/image', {
                 method: 'post',
                 headers: {
                     Authorization: 'Client-ID a81be53fc1fe8b3',
                 },
-                body: data,
+                body: formdata,
             })
                 .then((data) => data.json())
                 .then((data) => {
-                    img.src = data.data.link;
-                    url.innerText = data.data.link;
-                    console.log(img.src);
-                    console.log(url.innerText);
+                    const img = data.data.link;
+                    _addImage(img);
                 })
                 .catch((err) => {
-                    console.log(111, err);
+                    console.log('ERROR', err);
                 });
         }
-        // _addImage(imageData);
     };
     return (
         <div>
@@ -44,7 +41,7 @@ export const ImageUploader = ({ editorState, addImage }) => {
                     type="file"
                     accept="image/*"
                     onChange={(e) => {
-                        _handleInputChange(e.target.files[0]);
+                        setImageData(e.target.files[0]);
                     }}
                     id="file-upload"
                 />
