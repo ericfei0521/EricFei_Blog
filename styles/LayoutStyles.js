@@ -10,7 +10,7 @@ const styles = css`
         grid-template-columns: 20% 60% 20%;
         align-items: center;
         text-align: center;
-        position: sticky;
+        position: fixed;
         top: 0;
         color: white;
         background-color: #121212;

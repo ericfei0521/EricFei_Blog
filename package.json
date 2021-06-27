@@ -1,9 +1,9 @@
 {
     "name": "ericfei-blog",
     "scripts": {
-        "dev": "next dev",
+        "dev": "node server.js",
         "build": "next build",
-        "start": "next start"
+        "start": "node server.js"
     },
     "dependencies": {
         "draft-convert": "^2.1.11",

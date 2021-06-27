@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import PrismDecorator from 'draft-js-prism';
 import { BlockStyleControls } from './editorUnits';
+import { ImageUploader, mediaBlockRenderer } from './imageUploader';
 
 const MyEditor = ({ className, id, content }) => {
     const contentState = convertFromRaw(content);
@@ -106,8 +107,19 @@ const MyEditor = ({ className, id, content }) => {
     };
 
     return (
-        <div style={{ maxWidth: '800px', margin: '0 auto' }} className={className}>
-            <div>
+        <div style={{ maxWidth: '800px', margin: '12vh auto 0 auto' }} className={className}>
+            <div
+                style={{
+                    position: 'fixed',
+                    top: '10vh',
+                    left: '0',
+                    width: '100%',
+                    padding: '10px',
+                    backgroundColor: 'black',
+                    display: 'flex',
+                    justifyContent: 'center',
+                }}
+            >
                 <button onClick={() => _handleInlineStyle('BOLD')}>
                     <Image src="/images/icons/bold.svg" alt="Bold-icon" height={15} width={15} />
                 </button>
@@ -118,6 +130,7 @@ const MyEditor = ({ className, id, content }) => {
                     <Image src="/images/icons/underline.svg" alt="underline-icon" height={15} width={15} />
                 </button>
                 <BlockStyleControls editorState={editorState} onToggle={_toggleBlockType} />
+                <ImageUploader editorState={editorState} addImage={_onChange} />
             </div>
             <label htmlFor="articleTitle">Title: </label>
             <input type="text" name="articleTitle" placeholder="please input title" />
@@ -129,6 +142,7 @@ const MyEditor = ({ className, id, content }) => {
                 handleKeyCommand={_handleKeyCommand}
                 keyBindingFn={_mapKeyToEditorCommand}
                 blockStyleFn={_getBlockStyle}
+                blockRendererFn={(block) => mediaBlockRenderer(block)}
             />
             <button onClick={_onChangeState}>Submit</button>
         </div>
