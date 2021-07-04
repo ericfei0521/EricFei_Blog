@@ -41,15 +41,49 @@ const MyEditor = ({ className, id, content }) => {
         }
         return 'not-handled';
     };
+    const _handleInlineStyle = (inlineStyle) => {
+        _onChange(RichUtils.toggleInlineStyle(editorState, inlineStyle));
+    };
 
+    const _toggleBlockType = (blockType) => {
+        let state = editorState;
+        if (blockType === 'code-block' && CodeUtils.hasSelectionInBlock(editorState)) {
+            const content = state.getCurrentContent();
+            const selection = state.getSelection();
+            const split = Modifier.splitBlock(content, selection);
+            state = EditorState.push(state, split, 'split-block');
+        }
+        _onChange(Draft.RichUtils.toggleBlockType(state, blockType));
+    };
+
+    const _clearCodeBlockStyle = () => {
+        const selection = editorState.getSelection();
+        const contentState = editorState.getCurrentContent();
+        const key = selection.getStartKey();
+        const block = contentState.getBlockForKey(key);
+        const styles = block.getType();
+        const isCodeBlockStyle = styles === 'code-block';
+        if (isCodeBlockStyle) {
+            _toggleBlockType('code-block');
+        } else {
+            return;
+        }
+    };
     const _mapKeyToEditorCommand = (e) => {
         if (e.keyCode === 9 /* TAB */) {
             _onChange(CodeUtils.onTab(e, editorState));
             return;
         }
-        if (e.keyCode === 13 /* RETURN */) {
+
+        if (e.keyCode === 13 && !e.shiftKey) {
             if (CodeUtils.hasSelectionInBlock(editorState)) {
                 _onChange(CodeUtils.handleReturn(e, editorState));
+                return;
+            }
+        }
+        if (e.shiftKey && e.keyCode === 13) {
+            if (CodeUtils.hasSelectionInBlock(editorState)) {
+                _clearCodeBlockStyle();
                 return;
             }
         }
@@ -73,21 +107,6 @@ const MyEditor = ({ className, id, content }) => {
         return false;
     };
 
-    const _toggleBlockType = (blockType) => {
-        let state = editorState;
-        if (blockType === 'code-block' && CodeUtils.hasSelectionInBlock(editorState)) {
-            const content = state.getCurrentContent();
-            const selection = state.getSelection();
-            const split = Modifier.splitBlock(content, selection);
-            state = EditorState.push(state, split, 'split-block');
-        }
-        _onChange(Draft.RichUtils.toggleBlockType(state, blockType));
-    };
-
-    const _handleInlineStyle = (inlineStyle) => {
-        _onChange(RichUtils.toggleInlineStyle(editorState, inlineStyle));
-    };
-
     const _onChangeState = () => {
         const data = convertToRaw(editorState.getCurrentContent());
         firestore.collection('Posts').doc(id).update({
@@ -107,19 +126,8 @@ const MyEditor = ({ className, id, content }) => {
     };
 
     return (
-        <div style={{ maxWidth: '800px', margin: '12vh auto 0 auto' }} className={className}>
-            <div
-                style={{
-                    position: 'fixed',
-                    top: '10vh',
-                    left: '0',
-                    width: '100%',
-                    padding: '10px',
-                    backgroundColor: 'black',
-                    display: 'flex',
-                    justifyContent: 'center',
-                }}
-            >
+        <div style={{ maxWidth: '1000px', margin: '70px auto 0 auto' }} className={className}>
+            <div className="toolbar">
                 <button onClick={() => _handleInlineStyle('BOLD')}>
                     <Image src="/images/icons/bold.svg" alt="Bold-icon" height={15} width={15} />
                 </button>
@@ -156,10 +164,23 @@ MyEditor.propTypes = {
 };
 
 export default styled(MyEditor)`
+    .toolbar {
+        position: fixed;
+        top: 70px;
+        max-width: 1000px;
+        padding: 10px;
+        background-color: black;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+    }
     .public-DraftStyleDefault-pre {
         font-family: 'Inconsolata', 'Menlo', 'Consolas', monospace;
-        font-size: 12px;
+        font-size: 16px;
         padding: 0.5em 10px;
+    }
+    figure {
+        display: flex;
+        justify-content: center;
     }
     blockquote {
         border-left: 5px solid #5a5a5a;

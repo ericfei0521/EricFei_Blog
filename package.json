@@ -1,11 +1,12 @@
 {
     "name": "ericfei-blog",
     "scripts": {
-        "dev": "node server.js",
+        "dev": "next dev",
         "build": "next build",
         "start": "next start"
     },
     "dependencies": {
+        "@svgr/webpack": "^5.5.0",
         "draft-convert": "^2.1.11",
         "draft-js": "^0.11.7",
         "draft-js-code": "^0.3.0",

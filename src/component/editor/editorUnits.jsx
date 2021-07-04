@@ -22,9 +22,6 @@ export const BlockStyleControls = (props) => {
     const { editorState } = props;
     const selection = editorState.getSelection();
     const blockType = editorState.getCurrentContent().getBlockForKey(selection.getStartKey()).getType();
-
-    console.log(blockType);
-
     const onToggle = (e, type) => {
         e.preventDefault();
         props.onToggle(type.style);

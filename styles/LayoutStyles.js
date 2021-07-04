@@ -5,7 +5,7 @@ const styles = css`
         width: 100%;
         box-sizing: border-box;
         padding: 20px;
-        height: 10vh;
+        height: 70px;
         display: grid;
         grid-template-columns: 20% 60% 20%;
         align-items: center;
