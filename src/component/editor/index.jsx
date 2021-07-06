@@ -6,7 +6,7 @@ import CodeUtils from 'draft-js-code';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import PrismDecorator from 'draft-js-prism';
-import { BlockStyleControls } from './editorUnits';
+import { BlockStyleControls, ColorStyleControls, colorStyleMap } from './inlineUnit';
 import { ImageUploader, mediaBlockRenderer } from './imageUploader';
 
 const MyEditor = ({ className, id, content }) => {
@@ -44,7 +44,24 @@ const MyEditor = ({ className, id, content }) => {
     const _handleInlineStyle = (inlineStyle) => {
         _onChange(RichUtils.toggleInlineStyle(editorState, inlineStyle));
     };
+    const _handleInlineColor = (toggledcolor) => {
+        const selection = editorState.getSelection();
+        const nextContentState = Object.keys(colorStyleMap).reduce((contentState, color) => {
+            return Modifier.removeInlineStyle(contentState, selection, color);
+        }, editorState.getCurrentContent());
 
+        let nextEditorState = EditorState.push(editorState, nextContentState, 'change-inline-style');
+        const currentStyle = editorState.getCurrentInlineStyle();
+        if (selection.isCollapsed()) {
+            nextEditorState = currentStyle.reduce((state, color) => {
+                return RichUtils.toggleInlineStyle(state, color);
+            }, nextEditorState);
+        }
+        if (!currentStyle.has(toggledcolor)) {
+            nextEditorState = RichUtils.toggleInlineStyle(nextEditorState, toggledcolor);
+        }
+        _onChange(nextEditorState);
+    };
     const _toggleBlockType = (blockType) => {
         let state = editorState;
         if (blockType === 'code-block' && CodeUtils.hasSelectionInBlock(editorState)) {
@@ -128,17 +145,24 @@ const MyEditor = ({ className, id, content }) => {
     return (
         <div style={{ maxWidth: '1000px', margin: '70px auto 0 auto' }} className={className}>
             <div className="toolbar">
-                <button onClick={() => _handleInlineStyle('BOLD')}>
-                    <Image src="/images/icons/bold.svg" alt="Bold-icon" height={15} width={15} />
-                </button>
-                <button onClick={() => _handleInlineStyle('ITALIC')}>
-                    <Image src="/images/icons/italic.svg" alt="italic-icon" height={15} width={15} />
-                </button>
-                <button onClick={() => _handleInlineStyle('UNDERLINE')}>
-                    <Image src="/images/icons/underline.svg" alt="underline-icon" height={15} width={15} />
-                </button>
-                <BlockStyleControls editorState={editorState} onToggle={_toggleBlockType} />
-                <ImageUploader editorState={editorState} addImage={_onChange} />
+                <div className="button-list">
+                    <button onClick={() => _handleInlineStyle('BOLD')}>
+                        <Image src="/images/icons/bold.svg" alt="Bold-icon" height={15} width={15} />
+                    </button>
+                    <button onClick={() => _handleInlineStyle('ITALIC')}>
+                        <Image src="/images/icons/italic.svg" alt="italic-icon" height={15} width={15} />
+                    </button>
+                    <button onClick={() => _handleInlineStyle('UNDERLINE')}>
+                        <Image src="/images/icons/underline.svg" alt="underline-icon" height={15} width={15} />
+                    </button>
+                    <BlockStyleControls editorState={editorState} onToggle={_toggleBlockType} />
+                    <ImageUploader editorState={editorState} addImage={_onChange} />
+                    <ColorStyleControls editorState={editorState} onToggle={_handleInlineColor} />
+                </div>
+                <div>
+                    <button onClick={_onChangeState}>Save</button>
+                    <button onClick={_onChangeState}>Submit</button>
+                </div>
             </div>
             <label htmlFor="articleTitle">Title: </label>
             <input type="text" name="articleTitle" placeholder="please input title" />
@@ -146,13 +170,16 @@ const MyEditor = ({ className, id, content }) => {
                 placeholder="Start writing ...."
                 handlePastedText={_handlePastedText}
                 editorState={editorState}
+                onFocus={() => {
+                    console.log(123);
+                }}
                 onChange={_onChange}
                 handleKeyCommand={_handleKeyCommand}
                 keyBindingFn={_mapKeyToEditorCommand}
                 blockStyleFn={_getBlockStyle}
                 blockRendererFn={(block) => mediaBlockRenderer(block)}
+                customStyleMap={colorStyleMap}
             />
-            <button onClick={_onChangeState}>Submit</button>
         </div>
     );
 };
@@ -167,11 +194,19 @@ export default styled(MyEditor)`
     .toolbar {
         position: fixed;
         top: 70px;
-        max-width: 1000px;
-        padding: 10px;
-        background-color: black;
+        left: 0;
+        width: 100%;
+        background-color: #333333;
+        z-index: 900;
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+        grid-template-columns: repeat(3, 1fr);
+        .button-list {
+            grid-column-start: 2;
+            max-width: 1000px;
+            padding: 10px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+        }
     }
     .public-DraftStyleDefault-pre {
         font-family: 'Inconsolata', 'Menlo', 'Consolas', monospace;

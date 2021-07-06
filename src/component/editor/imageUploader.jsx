@@ -57,15 +57,20 @@ const ImageWrapper = styled.div`
         button {
             border-radius: 4px;
         }
-        button {
-            background-color: transparent;
-            width: fit-content;
+        .buttons {
             justify-self: end;
-            color: white;
-            border: 1px solid white;
-            &:hover {
-                cursor: pointer;
-                background-color: #252525;
+            button {
+                background-color: transparent;
+                width: fit-content;
+                color: white;
+                border: 1px solid white;
+                &:hover {
+                    cursor: pointer;
+                    background-color: #252525;
+                }
+                &:first-child {
+                    margin-right: 5px;
+                }
             }
         }
     }
@@ -143,7 +148,10 @@ export const ImageUploader = ({ editorState, addImage }) => {
                         setImageData(e.target.value);
                     }}
                 />
-                <button onClick={_handleInputChange}>Submit</button>
+                <div className="buttons">
+                    <button onClick={_handleInputChange}>Submit</button>
+                    <button onClick={() => setIsOpen(false)}>Cancel</button>
+                </div>
             </div>
         </ImageWrapper>
     );
