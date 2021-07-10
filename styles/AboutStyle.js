@@ -3,6 +3,7 @@ import { css } from 'styled-components';
 const styles = css`
     display: grid;
     height: 400px;
+    margin-top: 20px;
     padding: 20px;
     grid-template-columns: 70% 30%;
     border-bottom: 1px solid white;

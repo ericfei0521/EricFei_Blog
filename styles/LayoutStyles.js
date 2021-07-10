@@ -35,6 +35,7 @@ const styles = css`
         width: 80%;
         display: flex;
         flex-direction: column;
+        min-height: 84vh;
     }
     footer {
         width: 100%;
