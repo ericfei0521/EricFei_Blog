@@ -5,12 +5,12 @@ const styles = css`
         width: 100%;
         box-sizing: border-box;
         padding: 20px;
-        height: 10vh;
+        height: 70px;
         display: grid;
         grid-template-columns: 20% 60% 20%;
         align-items: center;
         text-align: center;
-        position: sticky;
+        position: fixed;
         top: 0;
         color: white;
         background-color: #121212;
@@ -35,6 +35,7 @@ const styles = css`
         width: 80%;
         display: flex;
         flex-direction: column;
+        min-height: 84vh;
     }
     footer {
         width: 100%;
