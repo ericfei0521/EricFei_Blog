@@ -128,7 +128,7 @@ export const ImageUploader = ({ editorState, addImage }) => {
             <PhotoIcon src="/images/icons/photo.svg" alt="" onClick={() => setIsOpen(!isOpen)} />
             <div className={`floatwrapper ${isOpen ? 'open' : ''}`}>
                 <p>Upload an image</p>
-                <label for="file-upload" className="image-select">
+                <label htmFor="file-upload" className="image-select">
                     Selet Image
                 </label>
                 <input
@@ -173,7 +173,7 @@ const Media = (props) => {
 
     if (type === 'image') {
         const key = props.block.getKey();
-        media = <ImageBox src={src} key={key} />;
+        media = <ImageBox src={src} key={key} loading="lazy" />;
     }
 
     return media;

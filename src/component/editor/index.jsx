@@ -170,9 +170,6 @@ const MyEditor = ({ className, id, content }) => {
                 placeholder="Start writing ...."
                 handlePastedText={_handlePastedText}
                 editorState={editorState}
-                onFocus={() => {
-                    console.log(123);
-                }}
                 onChange={_onChange}
                 handleKeyCommand={_handleKeyCommand}
                 keyBindingFn={_mapKeyToEditorCommand}
